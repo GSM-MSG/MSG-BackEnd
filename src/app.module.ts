@@ -6,10 +6,12 @@ import { UserController } from './user/user.controller';
 import { UserModule } from './user/user.module';
 import { AuthController } from './auth/auth.controller';
 import { AuthModule } from './auth/auth.module';
+import { ClubController } from './club/club.controller';
+import { ClubModule } from './club/club.module';
 
 @Module({
-  imports: [UserModule, AuthModule],
-  controllers: [AppController, UserController, AuthController],
+  imports: [UserModule, AuthModule, ClubModule],
+  controllers: [AppController, UserController, AuthController, ClubController],
   providers: [AppService, UserService],
 })
 export class AppModule {}
