@@ -1,9 +1,11 @@
-import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import { Column, Entity, PrimaryGeneratedColumn, ManyToOne } from 'typeorm';
+import { club } from './club.entity';
+import { User } from './user.entity';
 
 @Entity()
 export class clubmember {
-  @PrimaryGeneratedColumn()
+  @ManyToOne(() => User, (User) => User.id)
   userId: number;
-  @Column()
+  @ManyToOne(() => club, (club) => club.id)
   clubId: number;
 }
