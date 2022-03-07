@@ -24,8 +24,8 @@ export class club {
   discord: string;
 
   @Column()
-  photo: string;
+  picture: string;
 
   @Column('simple-array')
-  clubPhotos: string[];
+  clubPictures: string[];
 }
