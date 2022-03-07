@@ -21,10 +21,13 @@ export class club {
   head: string;
 
   @Column()
+  photo: string;
+
+  @Column()
   discord: string;
 
   @Column('simple-array')
-  clubMember: string[];
+  bannerPhoto: string[];
 
   @Column('simple-array')
   clubPicture: string[];
