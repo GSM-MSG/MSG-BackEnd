@@ -10,4 +10,10 @@ export class User {
 
   @Column()
   auth: string;
+
+  @Column()
+  sub: string;
+
+  @Column()
+  device_id: string;
 }

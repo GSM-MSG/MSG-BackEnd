@@ -7,7 +7,7 @@ export class notifiacion {
   id: number;
 
   @ManyToOne(() => Club, (club) => club.id)
-  clubId: Club;
+  club_id: Club;
 
   @Column()
   title: string;

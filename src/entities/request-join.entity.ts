@@ -8,8 +8,8 @@ export class join {
   id: string;
 
   @ManyToOne(() => User, (User) => User.id)
-  userId: User;
+  user_id: User;
 
   @ManyToOne(() => Club, (club) => club.id)
-  clubId: Club;
+  club_id: Club;
 }
