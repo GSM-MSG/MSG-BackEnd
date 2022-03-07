@@ -1,13 +1,13 @@
 import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
-import { club } from './club.entity';
+import { Club } from './club.entity';
 
 @Entity()
 export class notifiacion {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @ManyToOne(() => club, (club) => club.id)
-  clubId: number;
+  @ManyToOne(() => Club, (club) => club.id)
+  clubId: Club;
 
   @Column()
   title: string;
