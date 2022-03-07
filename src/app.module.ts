@@ -4,6 +4,12 @@ import { AuthModule } from './auth/auth.module';
 import { ClubModule } from './club/club.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { ConfigModule } from '@nestjs/config';
+import { clubmember } from './entities/club-member.entity';
+import { User } from './entities/user.entity';
+import { Club } from './entities/club.entity';
+import { notifiacion } from './entities/notification.entity';
+import { image } from './entities/image.entity';
+import { join } from './entities/request-join.entity';
 
 @Module({
   imports: [
@@ -15,7 +21,7 @@ import { ConfigModule } from '@nestjs/config';
       type: 'mysql',
       host: process.env.DATABASE_HOST,
       password: process.env.DATABASE_PASSWORD,
-      entities: [__dirname + '/**/*.entity{.ts,.js}'],
+      entities: [clubmember, User, Club, notifiacion, image, join],
       port: 3306,
       database: process.env.DATABASE_NAME,
       username: process.env.DATABASE_USERNAME,

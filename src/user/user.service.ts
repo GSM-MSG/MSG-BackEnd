@@ -8,8 +8,8 @@ import { Repository } from 'typeorm';
 export class UserService {
   constructor(
     @InjectRepository(User)
-    private readonly User: Repository<User>,
-    private readonly jwtService: JwtService,
+    private User: Repository<User>,
+    private jwtService: JwtService,
   ) {}
   async findUser(Token) {}
   async decodeToken(Token) {
