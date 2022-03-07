@@ -15,5 +15,5 @@ export class User {
   sub: string;
 
   @Column()
-  device_id: string;
+  deviceId: string;
 }
