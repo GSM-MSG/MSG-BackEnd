@@ -5,6 +5,8 @@ import { User } from './user.entity';
 @Entity()
 export class clubmember {
   @PrimaryColumn()
+  id: string;
+
   @ManyToOne(() => User, (User) => User.id)
   userId: User;
 
