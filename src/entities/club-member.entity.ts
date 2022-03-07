@@ -6,6 +6,7 @@ import { User } from './user.entity';
 export class clubmember {
   @ManyToOne(() => User, (User) => User.id)
   userId: number;
+
   @ManyToOne(() => club, (club) => club.id)
   clubId: number;
 }
