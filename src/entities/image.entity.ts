@@ -7,7 +7,7 @@ export class image {
   id: number;
 
   @ManyToOne(() => Club, (club) => club.id)
-  club_id: Club;
+  clubId: Club;
 
   @Column()
   uri: string;
