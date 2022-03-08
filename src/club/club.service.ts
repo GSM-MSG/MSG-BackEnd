@@ -1,7 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Club } from 'src/entities/club.entity';
-import { User } from 'src/entities/user.entity';
 import { UserService } from 'src/user/user.service';
 import { Repository } from 'typeorm';
 
@@ -9,7 +8,7 @@ import { Repository } from 'typeorm';
 export class ClubService {
   constructor(
     @InjectRepository(Club)
-    private readonly Club: Repository<Club>,
+    private Club: Repository<Club>,
     private readonly userService: UserService,
   ) {}
   async CreateClub(CreateData, req) {

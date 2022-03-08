@@ -1,15 +1,15 @@
 import { Module } from '@nestjs/common';
-import { AppController } from './app.controller';
-import { AppService } from './app.service';
-import { UserService } from './user/user.service';
-import { UserController } from './user/user.controller';
 import { UserModule } from './user/user.module';
-import { AuthController } from './auth/auth.controller';
 import { AuthModule } from './auth/auth.module';
-import { ClubController } from './club/club.controller';
 import { ClubModule } from './club/club.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { ConfigModule } from '@nestjs/config';
+import { clubmember } from './entities/club-member.entity';
+import { User } from './entities/user.entity';
+import { Club } from './entities/club.entity';
+import { notifiacion } from './entities/notification.entity';
+import { image } from './entities/image.entity';
+import { join } from './entities/request-join.entity';
 
 @Module({
   imports: [
@@ -21,14 +21,12 @@ import { ConfigModule } from '@nestjs/config';
       type: 'mysql',
       host: process.env.DATABASE_HOST,
       password: process.env.DATABASE_PASSWORD,
-      entities: [__dirname + '/**/*.entity{.ts,.js}'],
+      entities: [clubmember, User, Club, notifiacion, image, join],
       port: 3306,
       database: process.env.DATABASE_NAME,
       username: process.env.DATABASE_USERNAME,
       synchronize: true,
     }),
   ],
-  controllers: [AppController, UserController, AuthController, ClubController],
-  providers: [AppService, UserService],
 })
 export class AppModule {}
