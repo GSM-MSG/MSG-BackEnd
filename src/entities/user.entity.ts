@@ -16,4 +16,7 @@ export class User {
 
   @Column()
   deviceId: string;
+
+  @Column()
+  userPicture: string;
 }
