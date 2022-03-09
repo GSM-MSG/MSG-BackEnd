@@ -36,4 +36,14 @@ export class ClubService {
       return await this.Club.find({ headId: TokenData.email });
     }
   }
+  async list(accessToken, type) {
+    const result = await this.authService.verify(accessToken);
+    if (type === 'MAJOR' || 'EDITORIAL' || 'FREEDOM') {
+      if (result) {
+        return await this.Club.find({ type: type });
+      }
+    } else {
+      throw new HttpException('없는 동아립니다', HttpStatus.BAD_REQUEST);
+    }
+  }
 }
