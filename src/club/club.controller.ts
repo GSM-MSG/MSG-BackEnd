@@ -1,6 +1,7 @@
 import {
   Body,
   Controller,
+  Get,
   HttpException,
   HttpStatus,
   Post,
@@ -21,5 +22,9 @@ export class ClubController {
     } else {
       throw new HttpException('Not Found Token', HttpStatus.BAD_REQUEST);
     }
+  }
+  @Get('manage')
+  async Manage(@Req() req: Request) {
+    return await this.clubService.Manage(req.headers.authorization);
   }
 }

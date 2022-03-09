@@ -1,4 +1,4 @@
-import { Module } from '@nestjs/common';
+import { forwardRef, Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { AuthModule } from 'src/auth/auth.module';
 import { clubmember } from 'src/entities/club-member.entity';
@@ -12,8 +12,8 @@ import { ClubService } from './club.service';
 @Module({
   imports: [
     TypeOrmModule.forFeature([Club, clubmember, image, notifiacion]),
-    UserModule,
     AuthModule,
+    
   ],
   controllers: [ClubController],
   providers: [ClubService],

@@ -11,7 +11,7 @@ export class ClubService {
     private Club: Repository<Club>,
     private readonly authService: AuthService,
   ) {}
-  async CreateClub(CreateData, Token:string) {
+  async CreateClub(CreateData, Token: string) {
     const articleTest = await this.articleTest(
       Token,
       CreateData.name,
@@ -27,6 +27,13 @@ export class ClubService {
     const user = await this.authService.verify(Token);
     if (user) {
       return await this.Club.findOne({ name: name, type: type });
+    }
+  }
+  async Manage(accessToken) {
+    const user = await this.authService.verify(accessToken);
+    if (user) {
+      const TokenData = await this.authService.decodeToken(accessToken);
+      return await this.Club.find({ headId: TokenData.email });
     }
   }
 }

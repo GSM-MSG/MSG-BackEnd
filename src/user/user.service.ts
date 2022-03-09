@@ -17,12 +17,7 @@ export class UserService {
   ) {}
 
   async findUser(Token) {
-    const TokenData = await this.decodeToken(Token);
-    return await this.User.findOne({ sub: TokenData.sub });
-  }
-
-  async decodeToken(Token) {
-    const TokenData = this.jwtService.decode(Token) as TToken;
-    return TokenData;
+    const TokenData = (await this.jwtService.decode(Token)) as TToken;
+    return await this.User.findOne({ email: TokenData.email });
   }
 }
