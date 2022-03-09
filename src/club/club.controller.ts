@@ -4,7 +4,9 @@ import {
   Get,
   HttpException,
   HttpStatus,
+  Param,
   Post,
+  Query,
   Req,
 } from '@nestjs/common';
 import { Request } from 'express';
@@ -26,5 +28,9 @@ export class ClubController {
   @Get('manage')
   async Manage(@Req() req: Request) {
     return await this.clubService.Manage(req.headers.authorization);
+  }
+  @Get('list')
+  async list(@Req() req: Request, @Query('type') type: string) {
+    return await this.clubService.list(req.headers.authorization, type);
   }
 }
