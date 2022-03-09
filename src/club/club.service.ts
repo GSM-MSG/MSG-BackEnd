@@ -38,7 +38,7 @@ export class ClubService {
   }
   async list(accessToken, type) {
     const result = await this.authService.verify(accessToken);
-    if (type === 'MAJOR' && 'EDITORIAL' && 'FREEDOM') {
+    if (type === 'MAJOR' || 'EDITORIAL' || 'FREEDOM') {
       if (result) {
         return await this.Club.find({ type: type });
       }
