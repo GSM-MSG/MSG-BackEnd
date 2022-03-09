@@ -1,5 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
+import { AuthService } from 'src/auth/auth.service';
 import { Club } from 'src/entities/club.entity';
 import { UserService } from 'src/user/user.service';
 import { Repository } from 'typeorm';
@@ -9,7 +10,7 @@ export class ClubService {
   constructor(
     @InjectRepository(Club)
     private Club: Repository<Club>,
-    private readonly userService: UserService,
+    private readonly authService: AuthService,
   ) {}
   async CreateClub(CreateData, req) {
     const Token = req.cookies['access_token'];
@@ -22,7 +23,9 @@ export class ClubService {
     }
   }
   async articleTest(Token, title, description) {
-    const user = await this.userService.findUser(Token);
-    return await this.Club.findOne({});
+    const user = await this.authService.verify(Token);
+    if (user) {
+      return await this.Club.findOne({ name: title, description: description });
+    }
   }
 }
