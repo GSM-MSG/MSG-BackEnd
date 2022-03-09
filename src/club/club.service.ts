@@ -11,8 +11,7 @@ export class ClubService {
     private Club: Repository<Club>,
     private readonly authService: AuthService,
   ) {}
-  async CreateClub(CreateData, req) {
-    const Token = req.headers['Authorization'];
+  async CreateClub(CreateData, Token) {
     const articleTest = await this.articleTest(
       Token,
       CreateData.name,

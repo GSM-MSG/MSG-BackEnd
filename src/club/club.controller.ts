@@ -7,6 +7,7 @@ export class ClubController {
   constructor(private readonly clubService: ClubService) {}
   @Post('write')
   async CreateClub(@Body() CreateData, @Req() req: Request) {
-    await this.clubService.CreateClub(CreateData, req);
+    const Token = req.headers['Authorization'];
+    await this.clubService.CreateClub(CreateData, Token);
   }
 }
