@@ -1,4 +1,11 @@
-import { Body, Controller, Post, Req } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  HttpException,
+  HttpStatus,
+  Post,
+  Req,
+} from '@nestjs/common';
 import { Request } from 'express';
 import { ClubService } from './club.service';
 
@@ -7,7 +14,12 @@ export class ClubController {
   constructor(private readonly clubService: ClubService) {}
   @Post('write')
   async CreateClub(@Body() CreateData, @Req() req: Request) {
-    const Token = req.headers['Authorization'];
-    await this.clubService.CreateClub(CreateData, Token);
+    if (req.headers.authorization) {
+      const Token = req.headers.authorization;
+      console.log('token', Token);
+      await this.clubService.CreateClub(CreateData, Token);
+    } else {
+      throw new HttpException('Not Found Token', HttpStatus.BAD_REQUEST);
+    }
   }
 }
