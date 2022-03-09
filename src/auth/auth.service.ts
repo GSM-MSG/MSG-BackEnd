@@ -8,7 +8,7 @@ type TToken = {
 @Injectable()
 export class AuthService {
   constructor(private readonly jwtService: JwtService) {}
-  async verify(Token) {
+  async verify(Token: string) {
     return true;
   }
   async decodeToken(Token) {
