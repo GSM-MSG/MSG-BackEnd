@@ -1,5 +1,6 @@
 import {
   HttpException,
+  HttpStatus,
   Injectable,
   UnauthorizedException,
 } from '@nestjs/common';
@@ -41,20 +42,40 @@ export class AuthService {
 
       return {
         accessToken: await this.createAccessToken(payload),
-        refreshToken: await this.createRefeshToekn(),
+        refreshToken: await this.createRefreshToken(payload),
       };
     }
     return {
       accessToken: await this.createAccessToken(payload),
-      refreshToken: await this.createRefeshToekn(),
+      refreshToken: await this.createRefreshToken(payload),
     };
   }
   async createAccessToken(payload: any) {
-    const token = this.jwtService.sign(payload);
-    return token;
+    const Accesstoken = this.jwtService.sign(payload);
+    return Accesstoken;
   }
-  async createRefeshToekn() {
-    const token = this.jwtService.sign({}, { expiresIn: '1d' });
-    return token;
+  async createRefreshToken(payload: any) {
+    const RefreshToken = await this.jwtService.sign(payload, {
+      expiresIn: '1d',
+    });
+    return RefreshToken;
+  }
+  async checkToken(accessToken, refreshToken) {
+    //엑세스가 없을때
+    if (accessToken === undefined) {
+      //리프레시가 없을때
+      if (refreshToken === undefined) {
+        throw new HttpException('로그인하세용', HttpStatus.BAD_REQUEST);
+      }
+      //리프레시가 있을때
+      const decoded = await this.jwtService.decode(refreshToken);
+      const payload = {
+        sub: decoded['sub'],
+        email: decoded['email'],
+        picture: decoded['picture'],
+      };
+      const newAccessToken = await this.jwtService.sign(payload);
+      return { accessToken: newAccessToken };
+    }
   }
 }
