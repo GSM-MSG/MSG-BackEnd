@@ -1,5 +1,6 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
+import { AuthModule } from 'src/auth/auth.module';
 import { clubmember } from 'src/entities/club-member.entity';
 import { Club } from 'src/entities/club.entity';
 import { image } from 'src/entities/image.entity';
@@ -9,7 +10,11 @@ import { ClubController } from './club.controller';
 import { ClubService } from './club.service';
 
 @Module({
-  imports: [TypeOrmModule.forFeature([Club, clubmember, image, notifiacion]),UserModule],
+  imports: [
+    TypeOrmModule.forFeature([Club, clubmember, image, notifiacion]),
+    UserModule,
+    AuthModule,
+  ],
   controllers: [ClubController],
   providers: [ClubService],
   exports: [ClubService],
