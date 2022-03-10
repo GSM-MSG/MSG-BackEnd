@@ -1,16 +1,19 @@
 import {
+  Body,
   Controller,
   Delete,
   Get,
   HttpException,
   HttpStatus,
   Param,
+  Put,
   Query,
   Req,
 } from '@nestjs/common';
 import { UserService } from './user.service';
 import { Request } from 'express';
 import { AuthService } from 'src/auth/auth.service';
+import { pictureUrldto } from 'src/dto/Pictureurl.dto';
 
 @Controller('user')
 export class UserController {
@@ -31,6 +34,13 @@ export class UserController {
   }
   @Get('/search')
   async searchUser(@Req() req: Request, @Query('q') name: string) {
+    const result = await this.authService.checkToken(
+      req.headers.authorization,
+      req.headers.refreshtoken,
+    );
+    if (result) {
+      return result;
+    }
     if (!name) {
       throw new HttpException('검색어가 없습니다.', HttpStatus.BAD_REQUEST);
     }
@@ -42,5 +52,19 @@ export class UserController {
       );
     }
     return user;
+  }
+  @Put('/edit/picture')
+  async editPicture(@Body() picturedata: pictureUrldto, @Req() req: Request) {
+    const result = await this.authService.checkToken(
+      req.headers.authorization,
+      req.headers.refreshtoken,
+    );
+    if (result) {
+      return result;
+    }
+    return await this.userservice.editPicture(
+      picturedata.pictureUrl,
+      req.headers.authorization,
+    );
   }
 }
