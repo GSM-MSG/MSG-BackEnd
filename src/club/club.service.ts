@@ -33,7 +33,7 @@ export class ClubService {
     const result = await this.authService.verify(accessToken);
     if (result) {
       const TokenData = await this.authService.decodeToken(accessToken);
-      return await this.Club.find({ headId: TokenData.email });
+      return await this.Club.find({ head: TokenData });
     }
   }
   async list(accessToken, type) {

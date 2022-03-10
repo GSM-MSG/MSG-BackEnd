@@ -1,4 +1,5 @@
-import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
+import { User } from './user.entity';
 
 @Entity()
 export class Club {
@@ -17,8 +18,8 @@ export class Club {
   @Column()
   teacher: string;
 
-  @Column()
-  head: string;
+  @OneToMany(() => User, (User) => User.id)
+  head: User;
 
   @Column()
   discord: string;
@@ -29,6 +30,4 @@ export class Club {
   @Column('simple-array')
   clubPictures: string[];
 
-  @Column()
-  headId: string; 
 }

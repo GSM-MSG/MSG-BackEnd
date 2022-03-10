@@ -33,4 +33,8 @@ export class ClubController {
   async list(@Req() req: Request, @Query('type') type: string) {
     return await this.clubService.list(req.headers.authorization, type);
   }
+  @Get('detailPage/:id')
+  async DetailPage(@Param() id: number, @Req() req: Request) {
+    console.log(id);
+  }
 }
