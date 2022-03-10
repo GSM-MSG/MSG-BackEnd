@@ -20,7 +20,13 @@ export class AuthService {
     @InjectRepository(User) private readonly UserRepository: Repository<User>,
     private readonly jwtService: JwtService,
   ) {}
-
+  async verify(Token: string) {
+    return true;
+  }
+  async decodeToken(Token) {
+    const TokenData = this.jwtService.decode(Token) as TToken;
+    return TokenData;
+  }
   async login(loginData: authDto) {
     const Token = await this.jwtService.decode(loginData.idToken);
     const deviceToken = loginData.deviceToken;
@@ -81,13 +87,5 @@ export class AuthService {
       const newAccessToken = await this.jwtService.sign(payload);
       return { accessToken: newAccessToken };
     }
-    export class AuthService {
-  constructor(private readonly jwtService: JwtService) {}
-  async verify(Token: string) {
-    return true;
   }
-  async decodeToken(Token) {
-    const TokenData = this.jwtService.decode(Token) as TToken;
-    return TokenData;
-  }
-    }
+}

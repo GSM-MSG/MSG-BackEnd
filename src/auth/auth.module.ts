@@ -9,7 +9,6 @@ import { AuthService } from './auth.service';
 
 @Module({
   imports: [
-
     JwtModule.register({ secret: 'asd', signOptions: { expiresIn: '2s' } }),
     TypeOrmModule.forFeature([User]),
     PassportModule,
