@@ -15,5 +15,8 @@ export class User {
   sub: string;
 
   @Column()
-  deviceId: string;
+  deviceToken: string;
+
+  @Column()
+  userPicture: string;
 }
