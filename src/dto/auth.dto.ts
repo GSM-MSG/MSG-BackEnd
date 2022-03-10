@@ -6,5 +6,5 @@ export class authDto {
 
   @IsString()
   @IsOptional()
-  deviceId: string;
+  deviceToken: string;
 }

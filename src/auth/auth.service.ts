@@ -19,7 +19,7 @@ export class AuthService {
 
   async login(loginData: authDto) {
     const Token = await this.jwtService.decode(loginData.idToken);
-    const deviceId = loginData.deviceId;
+    const deviceToken = loginData.deviceToken;
     if (Token['sub'] === null) {
       throw new UnauthorizedException();
     }
@@ -36,7 +36,7 @@ export class AuthService {
         sub: Token['sub'],
         email: Token['email'],
         userPicture: Token['picture'],
-        deviceId: deviceId,
+        deviceToken: deviceToken,
       });
       await this.UserRepository.save(userData);
 
