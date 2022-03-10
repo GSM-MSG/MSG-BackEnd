@@ -28,4 +28,7 @@ export class Club {
 
   @Column('simple-array')
   clubPictures: string[];
+
+  @Column()
+  headId: string; 
 }

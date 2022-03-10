@@ -9,7 +9,11 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { authDto } from 'src/dto/auth.dto';
 import { User } from 'src/entities/user.entity';
 import { Repository } from 'typeorm';
-
+type TToken = {
+  sub: string;
+  email: string;
+  picture: string;
+};
 @Injectable()
 export class AuthService {
   constructor(
@@ -77,5 +81,13 @@ export class AuthService {
       const newAccessToken = await this.jwtService.sign(payload);
       return { accessToken: newAccessToken };
     }
+    export class AuthService {
+  constructor(private readonly jwtService: JwtService) {}
+  async verify(Token: string) {
+    return true;
   }
-}
+  async decodeToken(Token) {
+    const TokenData = this.jwtService.decode(Token) as TToken;
+    return TokenData;
+  }
+    }
