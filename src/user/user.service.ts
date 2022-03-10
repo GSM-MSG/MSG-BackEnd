@@ -1,6 +1,7 @@
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { InjectRepository } from '@nestjs/typeorm';
+import { clubmember } from 'src/entities/club-member.entity';
 import { User } from 'src/entities/user.entity';
 import { Repository } from 'typeorm';
 type TToken = {
@@ -13,6 +14,8 @@ export class UserService {
   constructor(
     @InjectRepository(User)
     private User: Repository<User>,
+    @InjectRepository(clubmember)
+    private clubMember: Repository<clubmember>,
     private jwtService: JwtService,
   ) {}
 
@@ -26,5 +29,8 @@ export class UserService {
       );
     }
     return user;
+  }
+  async serchUser(name: string) {
+    return await this.User.find({ name: name });
   }
 }
