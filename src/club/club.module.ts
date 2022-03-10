@@ -1,6 +1,7 @@
 import { forwardRef, Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { AuthModule } from 'src/auth/auth.module';
+import { AuthService } from 'src/auth/auth.service';
 import { clubmember } from 'src/entities/club-member.entity';
 import { Club } from 'src/entities/club.entity';
 import { image } from 'src/entities/image.entity';
@@ -15,6 +16,5 @@ import { ClubService } from './club.service';
   ],
   controllers: [ClubController],
   providers: [ClubService],
-  exports: [ClubService],
 })
 export class ClubModule {}

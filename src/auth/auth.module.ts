@@ -12,7 +12,6 @@ import { AuthService } from './auth.service';
     JwtModule.register({ secret: 'asd', signOptions: { expiresIn: '2s' } }),
     TypeOrmModule.forFeature([User]),
     PassportModule,
-    UserModule,
   ],
   controllers: [AuthController],
   providers: [AuthService],
