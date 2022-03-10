@@ -1,5 +1,5 @@
-import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
-
+import { Column, Entity, ManyToMany, PrimaryGeneratedColumn } from 'typeorm';
+import { clubmember } from './club-member.entity';
 
 @Entity()
 export class Club {
@@ -33,5 +33,6 @@ export class Club {
   @Column()
   headId: string;
 
-  
+  @ManyToMany(() => clubmember, (clubmember) => clubmember.id)
+  clubMember: clubmember;
 }
