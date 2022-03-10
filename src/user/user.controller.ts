@@ -15,6 +15,9 @@ export class UserController {
       req.headers.authorization,
       req.headers.refreshtoken,
     );
-    console.log(result);
+    if (result) {
+      return result;
+    }
+    return this.userservice.findUser(req.headers.authorization);
   }
 }
