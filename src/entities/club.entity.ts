@@ -32,4 +32,6 @@ export class Club {
 
   @Column()
   headId: string;
+
+  
 }

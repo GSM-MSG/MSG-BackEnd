@@ -49,7 +49,7 @@ export class ClubService {
   async detailPage(id, accessToken) {
     const result = await this.authService.verify(accessToken);
     if (result) {
-      const Club = await this.Club.findOne({ id: id });
+      const Club = await this.Club.findOne({ id: id.id });
       if (!Club)
         throw new HttpException('없는 동아리입니다', HttpStatus.BAD_REQUEST);
       return Club;
