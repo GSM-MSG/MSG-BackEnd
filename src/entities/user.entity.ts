@@ -19,4 +19,13 @@ export class User {
 
   @Column()
   userPicture: string;
+
+  @Column()
+  grade: number;
+
+  @Column()
+  class: number;
+
+  @Column()
+  number: number;
 }
