@@ -47,11 +47,16 @@ export class UserService {
     await this.User.save(decodedToken);
   }
   async inviteAccept(clubName: string, clubType: string, Token) {
-    const decodedToken = await this.jwtService.decode(Token);
+    const decodedToken = (await this.jwtService.decode(Token)) as TToken;
     const club = await this.club.findOne({ name: clubName, type: clubType });
-    console.log(club);
+
+    return await this.clubMember.save({
+      userName: decodedToken.name,
+      clubName: clubName,
+      clubType: clubType,
+    });
   }
   async tt() {
-    return this.club.find();
+    return this.clubMember.find();
   }
 }
