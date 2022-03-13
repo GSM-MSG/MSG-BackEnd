@@ -13,6 +13,7 @@ type TToken = {
   sub: string;
   email: string;
   picture: string;
+  name: string;
 };
 @Injectable()
 export class AuthService {
@@ -40,6 +41,7 @@ export class AuthService {
       sub: Token['sub'],
       email: Token['email'],
       picture: Token['picture'],
+      name: Token['name'],
     };
     if (!user) {
       const userData = await this.UserRepository.create({

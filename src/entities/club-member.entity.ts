@@ -1,15 +1,23 @@
-import { Entity, ManyToOne, PrimaryColumn } from 'typeorm';
-import { Club } from './club.entity';
-import { User } from './user.entity';
+import {
+  Column,
+  Entity,
+  JoinColumn,
+  ManyToOne,
+  OneToOne,
+  PrimaryGeneratedColumn,
+} from 'typeorm';
 
 @Entity()
 export class clubmember {
-  @PrimaryColumn()
-  id: string;
+  @PrimaryGeneratedColumn()
+  id: number;
 
-  @ManyToOne(() => User, (User) => User.id)
-  userId: User;
+  @Column()
+  userName: string;
 
-  @ManyToOne(() => Club, (club) => club.id)
-  clubId: Club;
+  @Column()
+  clubName: string;
+
+  @Column()
+  clubType: string;
 }

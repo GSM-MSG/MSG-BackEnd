@@ -10,6 +10,7 @@ type TToken = {
   sub: string;
   email: string;
   picture: string;
+  name: string;
 };
 @Injectable()
 export class UserService {
@@ -25,14 +26,15 @@ export class UserService {
 
   async findUser(Token) {
     const TokenData = (await this.jwtService.decode(Token)) as TToken;
-    const user = await this.User.findOne({ email: TokenData.email });
+    const user = await this.User.findOne({ sub: TokenData.sub });
+    console.log(user);
     if (!user) {
       throw new HttpException(
         '유저의 정보가 없습니다.',
         HttpStatus.BAD_REQUEST,
       );
     }
-    return user;
+    return { user };
   }
   async serchUser(name: string) {
     return await this.User.find({ name: name });
@@ -41,6 +43,15 @@ export class UserService {
     const decodedToken = (await this.jwtService.decode(Token)) as TToken;
     console.log(decodedToken);
     decodedToken.picture = pictureUrl;
-    return decodedToken;
+
+    await this.User.save(decodedToken);
+  }
+  async inviteAccept(clubName: string, clubType: string, Token) {
+    const decodedToken = await this.jwtService.decode(Token);
+    const club = await this.club.findOne({ name: clubName, type: clubType });
+    console.log(club);
+  }
+  async tt() {
+    return this.club.find();
   }
 }

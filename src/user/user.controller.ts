@@ -67,4 +67,27 @@ export class UserController {
       req.headers.authorization,
     );
   }
+  @Put('/invite/accept')
+  async inviteAccept(
+    @Query('q') clubName: string,
+    @Query('type') clubType: string,
+    @Req() req: Request,
+  ) {
+    const result = await this.authService.checkToken(
+      req.headers.authorization,
+      req.headers.refreshtoken,
+    );
+    if (result) {
+      return result;
+    }
+    return await this.userservice.inviteAccept(
+      clubName,
+      clubType,
+      req.headers.authorization,
+    );
+  }
+  @Get('dd')
+  async aa() {
+    return this.userservice.tt();
+  }
 }
