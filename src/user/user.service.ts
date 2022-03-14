@@ -12,6 +12,8 @@ type TToken = {
   picture: string;
   name: string;
 };
+let majorClubName = '';
+let freeClubName = '';
 @Injectable()
 export class UserService {
   constructor(
@@ -23,18 +25,38 @@ export class UserService {
     private club: Repository<Club>,
     private jwtService: JwtService,
   ) {}
-
   async findUser(Token) {
-    const TokenData = (await this.jwtService.decode(Token)) as TToken;
+    const TokenData = this.jwtService.decode(Token) as TToken;
+    const clubMember = await this.clubMember.find({ userName: TokenData.name });
     const user = await this.User.findOne({ sub: TokenData.sub });
-    console.log(user);
-    if (!user) {
-      throw new HttpException(
-        '유저의 정보가 없습니다.',
-        HttpStatus.BAD_REQUEST,
-      );
+    console.log(clubMember);
+
+    for (let i = 0; i < clubMember.length; i++) {
+      if (clubMember[i].clubType === 'MAJOR') {
+        majorClubName = clubMember[i].clubName;
+      }
+      if (clubMember[i].clubType === 'FREEDOM') {
+        freeClubName = clubMember[i].clubName;
+      }
     }
-    return { user };
+    const majorClub = await this.club.findOne({
+      name: majorClubName,
+      type: 'MAJOR',
+    });
+    console.log(majorClub);
+
+    const freeClub = await this.club.findOne({
+      name: freeClubName,
+      type: 'FREEDOM',
+    });
+    const retureData = {
+      id: user.id,
+      name: user.name,
+      picture: user.userPicture,
+      joinedMajorClub: majorClub,
+      joinedEditorialClub: freeClub,
+    };
+    return retureData;
   }
   async serchUser(name: string) {
     return await this.User.find({ name: name });
@@ -48,7 +70,6 @@ export class UserService {
   }
   async inviteAccept(clubName: string, clubType: string, Token) {
     const decodedToken = (await this.jwtService.decode(Token)) as TToken;
-    const club = await this.club.findOne({ name: clubName, type: clubType });
 
     return await this.clubMember.save({
       userName: decodedToken.name,
