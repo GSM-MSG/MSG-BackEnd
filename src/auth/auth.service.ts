@@ -25,11 +25,11 @@ export class AuthService {
     return true;
   }
   async decodeToken(Token) {
-    const TokenData = this.jwtService.decode(Token) as TToken;
+    const TokenData = (await this.jwtService.decode(Token)) as TToken;
     return TokenData;
   }
   async login(loginData: authDto) {
-    const Token = this.jwtService.decode(loginData.idToken) as TToken;
+    const Token = (await this.jwtService.decode(loginData.idToken)) as TToken;
     const deviceToken = loginData.deviceToken;
     if (Token['sub'] === null) {
       throw new UnauthorizedException();
@@ -64,7 +64,7 @@ export class AuthService {
     };
   }
   async createAccessToken(payload: any) {
-    const Accesstoken = this.jwtService.sign(payload);
+    const Accesstoken = await this.jwtService.sign(payload);
     return Accesstoken;
   }
   async createRefreshToken(payload: any) {
