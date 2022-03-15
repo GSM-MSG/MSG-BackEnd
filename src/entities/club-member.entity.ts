@@ -7,6 +7,7 @@ import {
   PrimaryGeneratedColumn,
 } from 'typeorm';
 
+
 @Entity()
 export class clubmember {
   @PrimaryGeneratedColumn()
