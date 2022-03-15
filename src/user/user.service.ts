@@ -62,14 +62,14 @@ export class UserService {
     return await this.User.find({ name: name });
   }
   async editPicture(pictureUrl: string, Token) {
-    const decodedToken = (await this.jwtService.decode(Token)) as TToken;
+    const decodedToken = this.jwtService.decode(Token) as TToken;
     console.log(decodedToken);
     decodedToken.picture = pictureUrl;
 
     await this.User.save(decodedToken);
   }
   async inviteAccept(clubName: string, clubType: string, Token) {
-    const decodedToken = (await this.jwtService.decode(Token)) as TToken;
+    const decodedToken = this.jwtService.decode(Token) as TToken;
 
     return await this.clubMember.save({
       userName: decodedToken.name,
