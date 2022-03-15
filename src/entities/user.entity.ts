@@ -21,7 +21,6 @@ export class User {
   userPicture: string;
 
   @Column()
-
   grade: number;
 
   @Column()
@@ -29,4 +28,7 @@ export class User {
 
   @Column()
   number: number;
+
+  @Column()
+  name: string;
 }
