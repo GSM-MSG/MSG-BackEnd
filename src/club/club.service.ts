@@ -43,7 +43,16 @@ export class ClubService {
         return await this.Club.find({ type: type });
       }
     } else {
-      throw new HttpException('없는 동아립니다', HttpStatus.BAD_REQUEST);
+      throw new HttpException('없는 동아리입니다', HttpStatus.BAD_REQUEST);
+    }
+  }
+  async detailPage(id, accessToken) {
+    const result = await this.authService.verify(accessToken);
+    if (result) {
+      const Club = await this.Club.findOne({ id: id.id });
+      if (!Club)
+        throw new HttpException('없는 동아리입니다', HttpStatus.BAD_REQUEST);
+      return Club;
     }
   }
 }

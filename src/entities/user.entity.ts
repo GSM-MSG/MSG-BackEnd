@@ -21,5 +21,12 @@ export class User {
   userPicture: string;
 
   @Column()
-  name: string;
+
+  grade: number;
+
+  @Column()
+  class: number;
+
+  @Column()
+  number: number;
 }
