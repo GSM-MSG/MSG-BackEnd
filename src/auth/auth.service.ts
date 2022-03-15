@@ -13,6 +13,7 @@ type TToken = {
   sub: string;
   email: string;
   picture: string;
+  name: string;
 };
 @Injectable()
 export class AuthService {
@@ -28,7 +29,7 @@ export class AuthService {
     return TokenData;
   }
   async login(loginData: authDto) {
-    const Token = await this.jwtService.decode(loginData.idToken);
+    const Token = this.jwtService.decode(loginData.idToken) as TToken;
     const deviceToken = loginData.deviceToken;
     if (Token['sub'] === null) {
       throw new UnauthorizedException();
@@ -40,12 +41,14 @@ export class AuthService {
       sub: Token['sub'],
       email: Token['email'],
       picture: Token['picture'],
+      name: Token['name'],
     };
     if (!user) {
       const userData = await this.UserRepository.create({
         sub: Token['sub'],
         email: Token['email'],
         userPicture: Token['picture'],
+        name: Token.name,
         deviceToken: deviceToken,
       });
       await this.UserRepository.save(userData);
